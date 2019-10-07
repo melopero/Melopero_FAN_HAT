@@ -79,5 +79,4 @@ try:
         
 
 except KeyboardInterrupt: # trap a CTRL+C keyboard interrupt 
-    fanOFF()
     GPIO.cleanup() # resets all GPIO ports used by this program
