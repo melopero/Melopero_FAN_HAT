@@ -19,7 +19,7 @@ Inside melopero-autostart you'll find the fan_controller.py and the uninstaller,
 ![melopero logo](images/ls_melopero_autostart.JPG?raw=true)
 
 ### Uninstalling
-To uninstall the melopero-fan-hat module and the melopero-autostart go to /home/melopero-autostart/uniunstall/ 
+To uninstall the melopero-fan-hat module and the melopero-autostart go to /home/melopero-autostart/uninstall/ 
 
 ![melopero logo](images/cd_uninstall.JPG?raw=true)
 
