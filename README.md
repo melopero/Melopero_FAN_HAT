@@ -1,5 +1,5 @@
 # Melopero FAN-HAT
-![melopero logo](images/fan.jpg?raw=true)
+![melopero logo](images/melopero_fan_hat.jpg?raw=true)
 
 ## Getting Started
 ### Prerequisites
