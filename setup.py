@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+@author: Leonardo La Rocca
+"""
+
 import setuptools
 import pkg_resources
 import os
@@ -31,9 +37,9 @@ class InstallCommand(install):
 
 setuptools.setup(
     name="melopero_fan_hat",
-    version="0.0.4",
+    version="0.0.5",
     description="Melopero Fan Hat, automatically sets up your melopero-fan-hat",
-    #url="https://github.com/melopero/Melopero_AMG8833/tree/master/module",
+    url="https://github.com/melopero/Melopero_FAN_HAT",
     author="Melopero",
     author_email="info@melopero.com",
     license="MIT",
