@@ -37,7 +37,7 @@ class InstallCommand(install):
 
 setuptools.setup(
     name="melopero_fan_hat",
-    version="0.0.5",
+    version="0.0.6",
     description="Melopero Fan Hat, automatically sets up your melopero-fan-hat",
     url="https://github.com/melopero/Melopero_FAN_HAT",
     author="Melopero",

@@ -2,32 +2,58 @@
 import os
 import time
 import RPi.GPIO as GPIO
-    
+import glob
 
 minimum_always_ON=True
 minimum_speed=30
 target_temp=52
-DEBUG=False
+
 current_speed=0
 
+thermal_zones_temp_dirs=glob.glob("/sys/class/thermal/thermal_zone*/temp")
 
 
 def getCPUtemperature():
-    global current_speed
     res = os.popen('vcgencmd measure_temp').readline()
-    temp =(res.replace("temp=","").replace("'C\n",""))
-    if(DEBUG):
-        print("temp is {0}, current speed: {1}".format(temp,current_speed)) #Uncomment here for testing
+    #vcgencmd measure_temp -> res="temp=NN.N'C\n"
+    #temp =(res.replace("temp=","").replace("'C\n",""))
+    temp=res[5:9]
+    try : 
+        temp= float(temp)
+    except :
+        print("vcgencmd measure_temp failed")
+        temp=getCPUTemperature2()
+            
     return temp
+
+def getCPUTemperature2():
+    temps=[]
+    for file_dir in thermal_zones_temp_dirs:
+        with open(file_dir, "r") as file:
+            try :
+                temps.append(float(file.read()))
+            except :
+                print("Error reading from file {}".format(file_dir))
+                continue
+    
+    if len(temps) == 0:
+        print("reading from sys files failed, no CPU temp detected using target_temp")
+        temps.append(target_temp * 1000)
+    
+    return max(temps) / 1000
 
 try:
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(18, GPIO.OUT)
+    
     myPWM=GPIO.PWM(18,50)
     myPWM.start(minimum_speed)
+    
     current_speed=minimum_speed
+    
     while True:
-        temp = float(getCPUtemperature())
+        temp = getCPUtemperature()
+        
         if(temp<target_temp and not minimum_always_ON):
             myPWM.ChangeDutyCycle(0)
             current_speed=0
@@ -79,5 +105,4 @@ try:
         
 
 except KeyboardInterrupt: # trap a CTRL+C keyboard interrupt 
-    fanOFF()
     GPIO.cleanup() # resets all GPIO ports used by this program
